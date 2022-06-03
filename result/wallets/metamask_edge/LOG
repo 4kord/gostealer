@@ -1,0 +1,21 @@
+2022/06/03-10:24:12.850 5a8 Reusing MANIFEST C:\Users\4kord\AppData\Local\Microsoft\Edge\User Data\Default\Local Extension Settings\ejbalbakoplchlghecdalmeeeajnimhm/MANIFEST-000001
+2022/06/03-10:24:12.851 5a8 Recovering log #211
+2022/06/03-10:24:12.867 5a8 Reusing old log C:\Users\4kord\AppData\Local\Microsoft\Edge\User Data\Default\Local Extension Settings\ejbalbakoplchlghecdalmeeeajnimhm/000211.log 
+2022/06/03-10:51:01.071 2698 Level-0 table #215: started
+2022/06/03-10:51:01.082 2698 Level-0 table #215: 1184027 bytes OK
+2022/06/03-10:51:01.083 2698 Delete type=0 #211
+2022/06/03-12:48:59.174 4d3c Level-0 table #217: started
+2022/06/03-12:48:59.215 4d3c Level-0 table #217: 1195469 bytes OK
+2022/06/03-12:48:59.217 4d3c Delete type=0 #214
+2022/06/03-18:15:45.631 4c64 Level-0 table #219: started
+2022/06/03-18:15:45.645 4c64 Level-0 table #219: 1206854 bytes OK
+2022/06/03-18:15:45.646 4c64 Delete type=0 #216
+2022/06/03-18:15:45.647 4c64 Compacting 4@0 + 1@1 files
+2022/06/03-18:15:45.657 4c64 Generated table #220@0: 1 keys, 50828 bytes
+2022/06/03-18:15:45.657 4c64 Compacted 4@0 + 1@1 files => 50828 bytes
+2022/06/03-18:15:45.658 4c64 compacted to: files[ 0 1 1 0 0 0 0 ]
+2022/06/03-18:15:45.658 4c64 Delete type=2 #209
+2022/06/03-18:15:45.658 4c64 Delete type=2 #212
+2022/06/03-18:15:45.658 4c64 Delete type=2 #215
+2022/06/03-18:15:45.659 4c64 Delete type=2 #217
+2022/06/03-18:15:45.659 4c64 Delete type=2 #219
