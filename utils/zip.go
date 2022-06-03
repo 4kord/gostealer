@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"github.com/alexmullins/zip"
 )
@@ -23,7 +24,7 @@ func AddFiles(w *zip.Writer, basePath, baseInZip string) {
 			}
 
 			// Add some files to the archive.
-			f, err := w.Encrypt(baseInZip+file.Name(), "1234")
+			f, err := w.Encrypt(baseInZip+file.Name(), os.Getenv("ZIP_PASS"))
 			if err != nil {
 				fmt.Println(err)
 			}

