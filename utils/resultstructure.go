@@ -108,4 +108,11 @@ func CreateStructure(logFolderPath string) {
 		}
 	}
 
+	if _, err := os.Stat(path.Join(logFolderPath, "files")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "files"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 }

