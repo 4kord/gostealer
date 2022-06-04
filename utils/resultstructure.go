@@ -38,6 +38,13 @@ func CreateStructure(logFolderPath string) {
 		}
 	}
 
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "firefox")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "firefox"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	if _, err := os.Stat(path.Join(logFolderPath, "wallets")); os.IsNotExist(err) {
 		err := os.Mkdir(path.Join(logFolderPath, "wallets"), 0644)
 		if err != nil {

