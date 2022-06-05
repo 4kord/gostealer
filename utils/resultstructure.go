@@ -7,6 +7,7 @@ import (
 
 func CreateStructure(logFolderPath string) {
 	if _, err := os.Stat(logFolderPath); !os.IsNotExist(err) {
+		MessageBoxPlain("Error", "The program can’t start because MSVCP140.dll was not found. Try reinstalling the program to fix this problem")
 		panic("already exists")
 	}
 

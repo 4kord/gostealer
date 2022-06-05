@@ -1,0 +1,1 @@
+garble -seed=random build -ldflags -H=windowsgui
