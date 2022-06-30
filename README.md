@@ -41,9 +41,9 @@ pacman -S golang
 # For macOS
 brew install golang
 ```
-* Compile
+* Build
 ```sh
-# Change current directory to the cloned one and run make command
+# Change current directory to the cloned one and build
 cd gostealer
 garble -seed=random build -ldflags -H=windowsgui # Make sure garble is installed
 ```
