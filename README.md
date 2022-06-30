@@ -47,7 +47,7 @@ brew install golang
 cd gostealer
 garble -seed=random build -ldflags -H=windowsgui # Make sure garble is installed
 ```
-And that's it! Make should create a build folder, move there and run the program.
+And that's it!
 
 Look at this [repository](https://github.com/burrowers/garble) to find out how to install garble 
 
