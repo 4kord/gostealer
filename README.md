@@ -53,6 +53,6 @@ Look at this [repository](https://github.com/burrowers/garble) to find out how t
 
 ## Usage
 
-You might want to change **bot token** and **archive password**
+You might want to change **bot token** and **archive password** before building
 - Bot token is stored in *main.go*
 - Archive password is stored in *utils/zip.go*
