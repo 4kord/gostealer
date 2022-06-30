@@ -1,13 +1,13 @@
 # Gostealer
 
-!["telegram"]("https://github.com/4kord/gostealer/blob/main/telegram.png?raw=true")
+![telegram]("https://github.com/4kord/gostealer/blob/main/telegram.png?raw=true")
 
 Gostealer is an educational project that decodes and sends all cookies, passwords and cryptocurrency wallets from chromium (and not only) browsers.
 
 - Small runtime
 - Fake error alert
 
-## Supported browsers
+#### Supported browsers
 
 - Chrome
 - Edge
@@ -15,7 +15,7 @@ Gostealer is an educational project that decodes and sends all cookies, password
 - Opera
 - OperaGX
 
-## Supported cryptocurrency wallets
+#### Supported cryptocurrency wallets
 
 - Atomic
 - Binancechain
