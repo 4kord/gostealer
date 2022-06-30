@@ -118,7 +118,7 @@ func main() {
 		panic(err)
 	}
 
-	bot, err := tgbotapi.NewBotAPI("1664618644:AAGN8PvkeJ325G7_6IovE1qdMmyCh22RSTA")
+	bot, err := tgbotapi.NewBotAPI("") // Telegram token
 	if err != nil {
 		panic(err)
 	}
