@@ -1,5 +1,5 @@
 # Gostealer
-Gostealer is a program that decodes and sends all cookies, passwords and cryptocurrency wallets from chromium (and not only) browsers.
+Gostealer decodes and sends all cookies, passwords and cryptocurrency wallets from chromium (and not only) browsers.
 
 <img src="https://github.com/4kord/gostealer/blob/main/telegram.png?raw=true" alt="Telegram" width="500">
 
