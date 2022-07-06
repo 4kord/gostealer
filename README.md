@@ -60,5 +60,5 @@ Look at this [repository](https://github.com/burrowers/garble) to find out how t
 
 ## Configuration
 
-You might want to change **bot token** and **archive password** before building
-Rename .env.example to .env and change values you need
+You might want to change **bot token** and **archive password** before building.
+Rename .env.example to .env and change values you need.
